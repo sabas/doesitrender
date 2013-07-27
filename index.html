@@ -1,0 +1,62 @@
+ <html>
+<head>
+	<title>Does it render?</title>
+	<script src="js/mapnik.js"></script>
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<link rel="stylesheet" href="css/formalize.css" />
+	<script src="js/jquery.formalize.min.js"></script>
+	<style>
+	body{
+		width:60%;margin-left:auto;margin-right:auto;text-align:center;
+		font-family:Verdana;
+		font-size:15pt;
+		font-weigth:bold;
+	}
+	.tag{color:red;}
+	input{}
+	</style>
+</head>
+<body>
+	<input type="text" id="box" name="box" value="highway=unclassified"/>
+	<input type="button" value="Does it render?" onclick="renders()"/>
+	<div id="result" name="result"></div>
+<script>
+function renders()
+{
+	var glob;
+	var question=$('#box').val();
+	var sp=question.split('=');
+	var k=sp[0], v=sp[1];
+	$.each(obj,function(i,s) {	
+		if(i==k)
+		{
+			$.each(s,function(j,k) {		
+				if(k==v)
+				{
+					displayMessage(question,true);
+					glob=true;
+				}	
+			});		
+		}	
+	});
+if(glob!=true)
+displayMessage(question,false);
+return;
+ }
+ 
+function displayMessage(question,res)
+{
+	if(res==true)
+	{
+		$('#result').html("Yep, <span class='tag'>"+question+"</span> renders in the main Mapnik style.");	
+	}
+	else
+	{
+		$('#result').html("Nope, <span class='tag'>"+question+"</span> does not render in the main Mapnik style, try some other rendering, or generate one yourself."+
+		" Otherwise you can display your tag nicely on <a href='http://overpass-turbo.eu/'>Overpass Turbo</a> or <a href='http://osm.dumoulin63.net/xapiviewer/'>XAPI Viewer</a>");
+	}	 
+}
+</script>
+
+</body>
+</html>
