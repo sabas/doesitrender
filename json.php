@@ -3,8 +3,6 @@
 //as file because simplexml validates the file (didn't succeed in loading it)
 $xml=file("osm.xml");
 
-//creating db and table
-
 $array=array();                       
 foreach ($xml as $line)
 {
@@ -33,5 +31,5 @@ foreach ($xml as $line)
 }
 header("Content-Type: text/javascript; charset=utf-8");
 header('Content-Disposition: attachment; filename="mapnik.js"');
-echo "var obj=".json_encode($array);
+echo "var objX=".json_encode($array);
 ?>
