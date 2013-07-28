@@ -20,8 +20,10 @@
 	</style>
 </head>
 <body>
-	<input type="text" id="box" name="box" value="highway=unclassified"/>
-	<input type="button" value="Does it render?" onclick="renders()"/>
+	<form onsubmit="renders(); return false;">
+		<input type="text" id="box" name="box" value="highway=unclassified"/>
+		<input type="submit" value="Does it render?"/>
+	</form>
 	<div id="result" name="result"></div>
 <script>
 function renders()
