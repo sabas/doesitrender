@@ -77,8 +77,9 @@ function displayMessage(question,rnd,res)
 function displayAlternatives(question)
 {
 	var sp=question.split('=');
+	var shtml=question.replace('=','%3D');
 	var k=sp[0], v=sp[1];
-	$('#result').append("You can display your tag nicely on <a href='http://overpass-turbo.eu/?template=key-value&key="+k+"&value="+v+"'>Overpass Turbo</a> or <a href='http://osm.dumoulin63.net/xapiviewer/'>XAPI Viewer</a> if you don't find <a href='http://wiki.openstreetmap.org/wiki/List_of_OSM_based_Services'>a render or an application</a> which suits you<br/>");
+	$('#result').append("You can display your tag nicely on <a href='http://overpass-turbo.eu/?template=key-value&key="+k+"&value="+v+"'>Overpass Turbo</a> or <a href='http://osm.dumoulin63.net/xapiviewer/?request="+shtml+"'>XAPI Viewer</a> if you don't find <a href='http://wiki.openstreetmap.org/wiki/List_of_OSM_based_Services'>a render or an application</a> which suits you<br/>");
 }
 </script>
 
