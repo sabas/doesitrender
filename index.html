@@ -2,7 +2,7 @@
 <head>
 	<title>Does it render?</title>
     <!-- rendering objects -->
-	<script src="renders/mapnik.js"></script>
+	<!--script src="renders/mapnik.js"></script-->
     <script src="renders/mapnikcarto.js"></script>
 
 	<script src="js/jquery-1.10.1.min.js"></script>
@@ -32,9 +32,9 @@ function renders()
 	var question=$('#box').val();
     $('#result').html("");
 
-    var mapnik=checkRender(question,objMapnik);
-    truth= truth && mapnik;
-    displayMessage(question,"main Mapnik", mapnik);
+    // var mapnik=checkRender(question,objMapnik);
+    // truth= truth && mapnik;
+    // displayMessage(question,"main Mapnik", mapnik);
 
     var carto=checkRender(question,objCarto);
     truth= truth && carto;

@@ -3,16 +3,7 @@
 //as file because simplexml validates the file (didn't succeed in loading it)
 $xml=file("xml/osm.xml");
 
-//creating db and table
-$file_db = new PDO('sqlite:dump.sqlite3');
-    $file_db->setAttribute(PDO::ATTR_ERRMODE, 
-                            PDO::ERRMODE_EXCEPTION);
-     $file_db->exec("CREATE TABLE IF NOT EXISTS kv (
-                    style TEXT, 
-                    k TEXT, 
-                    v TEXT,
-                    PRIMARY KEY (k,v))");
-                            
+$array=array();                       
 foreach ($xml as $line)
 {
 	//I need Filter tag only
@@ -30,10 +21,15 @@ foreach ($xml as $line)
 			$l=count($arr[1]);
 			for ($i=0;$i<$l;$i++)
 			{
-				$file_db->exec("INSERT OR IGNORE INTO kv (style, k, v) 
-					VALUES ('"."mapnik"."', '".$arr[1][$i]."', '".$arr[2][$i]."')"); 
+				$k=$arr[1][$i];
+				$v=$arr[2][$i];
+				if (isset($array[$k])&&in_array($v,$array[$k])) continue;
+				$array[$k][]=$v;
 			}
 		}
 	}
 }
+header("Content-Type: text/javascript; charset=utf-8");
+header('Content-Disposition: attachment; filename="mapnik.js"');
+echo "var objX=".json_encode($array);
 ?>

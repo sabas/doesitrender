@@ -1,35 +1,40 @@
 <?php
-//load mapnik xml stylesheet
-//as file because simplexml validates the file (didn't succeed in loading it)
-$xml=file("osm.xml");
+//load carto stylesheet and select all filters
 
-$array=array();                       
-foreach ($xml as $line)
+$xml=simplexml_load_file("xml/carto.xml");
+$path=$xml->xpath("/Map/Style/Rule/Filter");    
+$archive=array();
+
+foreach ($path as $line)
 {
-	//I need Filter tag only
-	$p="$<Filter>(.*)</Filter>$";
-	preg_match($p,$line,$mat);
-	if(isset($mat[1]))
+	$r=explode(" and ",$line); //split and rules: other logical operators are possible
+	$pat="/\[(\w+)\]\s*([=<>]{1,2})\s*'(\w+)'/i"; //k,v with different operators (=,<=,>=)
+
+	foreach ($r as $rul)
 	{
-		$sub=$mat[1];
-		$pat="/\[(\w+)\]\s*=\s*'(\w+)'/i";
 		$arr=array();
-		preg_match_all($pat,$sub,$arr);
-		//list of k,v in the two arrays, if size is equal, save each couple
-		if (count($arr[1])==count($arr[2]))
-		{
-			$l=count($arr[1]);
-			for ($i=0;$i<$l;$i++)
-			{
-				$k=$arr[1][$i];
-				$v=$arr[2][$i];
-				if (isset($array[$k])&&in_array($v,$array[$k])) continue;
-				$array[$k][]=$v;
-			}
-		}
+		preg_match_all($pat,$rul,$arr);
+		if(count($arr[1])==0)continue;
+		$k=$arr[1][0];
+		$op=$arr[2][0];
+		$v=$arr[3][0];
+		if (isset($archive[$k])&&in_array($v,$archive[$k])) continue;
+		if ($op=='=') $archive[$k][]=$v;
 	}
 }
+
+if(isset($archive['feature']))
+{
+	foreach($archive['feature'] as $feature)
+	{
+		list($k,$v)=explode('_',$feature,2);
+		if (isset($archive[$k])&&in_array($v,$archive[$k])) continue;
+		$archive[$k][]=$v;
+	}
+	unset($archive['feature']);
+}
+
 header("Content-Type: text/javascript; charset=utf-8");
-header('Content-Disposition: attachment; filename="mapnik.js"');
-echo "var objX=".json_encode($array);
+header('Content-Disposition: attachment; filename="mapnikcarto.js"');
+echo "var objCarto=".json_encode($archive);
 ?>
