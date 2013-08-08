@@ -39,7 +39,7 @@ function renders()
     var carto=checkRender(question,objCarto);
     truth= truth && carto;
     displayMessage(question,"Carto port",carto);
-    if (truth==false)displayAlternatives();
+    if (truth==false)displayAlternatives(question);
     return;
  }
 
@@ -74,9 +74,11 @@ function displayMessage(question,rnd,res)
 		$('#result').append("Nope, <span class='tag'>"+question+"</span> does not render in the "+rnd+" style.<br/>");
 	} 
 }
-function displayAlternatives()
+function displayAlternatives(question)
 {
-$('#result').append("You can display your tag nicely on <a href='http://overpass-turbo.eu/'>Overpass Turbo</a> or <a href='http://osm.dumoulin63.net/xapiviewer/'>XAPI Viewer</a> if you don't find <a href='http://wiki.openstreetmap.org/wiki/List_of_OSM_based_Services'>a render or an application</a> which suits you<br/>");
+	var sp=question.split('=');
+	var k=sp[0], v=sp[1];
+	$('#result').append("You can display your tag nicely on <a href='http://overpass-turbo.eu/?template=key-value&key="+k+"&value="+v+"'>Overpass Turbo</a> or <a href='http://osm.dumoulin63.net/xapiviewer/'>XAPI Viewer</a> if you don't find <a href='http://wiki.openstreetmap.org/wiki/List_of_OSM_based_Services'>a render or an application</a> which suits you<br/>");
 }
 </script>
 
