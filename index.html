@@ -27,6 +27,11 @@
 	</form>
 	<div id="result" name="result"></div>
 <script type="text/javascript">
+if (window.location.hash.length>1)
+{
+	$('#box').val(window.location.hash.substring(1));
+	renders();
+}
 function renders()
 {
 	var truth=true;
