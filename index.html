@@ -36,11 +36,8 @@ function renders()
 {
 	var truth=true;
 	var question=$('#box').val();
+	window.location.hash=question;
     $('#result').html("");
-
-    // var mapnik=checkRender(question,objMapnik);
-    // truth= truth && mapnik;
-    // displayMessage(question,"main Mapnik", mapnik);
 
     var carto=checkRender(question,objCarto);
     truth= truth && carto;
