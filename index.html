@@ -40,7 +40,7 @@ function renders()
 
     var carto=checkRender(question,objCarto);
     truth= truth && carto;
-    displayMessage(question,"Carto port",carto);
+    displayMessage(question,"openstreetmap-carto",carto);
     if (truth==false)displayAlternatives(question);
     return;
  }
@@ -53,11 +53,11 @@ function checkRender(question,rnd)
 	$.each(rnd,function(i,s) {	
 		if(i==k)
 		{
-			$.each(s,function(j,k) {		
-				if(k==v)
+			$.each(s,function(j,x) {		
+				if(x==v||x==='*')
 				{
 				    glob=true;
-				}	
+				}
 			});		
 		}	
 	});
