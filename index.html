@@ -67,13 +67,21 @@ function checkRender(question,rnd)
  
 function displayMessage(question,rnd,res)
 {
+	var sp=question.split('=');
+	var shtml=question.replace('=','%3D');
 	if(res==true)
 	{
-		$('#result').append("Yep, <span class='tag'>"+question+"</span> renders in the "+rnd+" style.<br/>");	
+		var txt="Yep, <span class='tag'>"+question+"</span> renders in the "+rnd+" style.<br/>";
+		txt+="You can get on <a href='http://wiki.openstreetmap.org/wiki/Tag:"+shtml+"'>the Wiki</a> some information";
+		txt+=" and on <a href='http://taginfo.openstreetmap.org/tags/?key="+sp[0]+"&value="+sp[1]+"'>TagInfo</a> some stats on the usage";
+		$('#result').append(txt);	
 	}
 	else
 	{
-		$('#result').append("Nope, <span class='tag'>"+question+"</span> does not render in the "+rnd+" style.<br/>");
+		var txt="Nope, <span class='tag'>"+question+"</span> does not render in the "+rnd+" style.<br/>";
+		txt+="Try searching information on <a href='http://wiki.openstreetmap.org/w/index.php?search="+sp[0]+"+"+sp[1]+"&title=Special%3ASearch'>the Wiki</a><br/>";
+		
+		$('#result').append(txt);
 	} 
 }
 function displayAlternatives(question)
@@ -81,7 +89,7 @@ function displayAlternatives(question)
 	var sp=question.split('=');
 	var shtml=question.replace('=','%3D');
 	var k=sp[0], v=sp[1];
-	$('#result').append("You can display your tag nicely on <a href='http://overpass-turbo.eu/?template=key-value&key="+k+"&value="+v+"'>Overpass Turbo</a> or <a href='http://osm.dumoulin63.net/xapiviewer/?request="+shtml+"'>XAPI Viewer</a> if you don't find <a href='http://wiki.openstreetmap.org/wiki/List_of_OSM_based_Services'>a render or an application</a> which suits you<br/>");
+	$('#result').append("Otherwise you can also display your tag nicely on <a href='http://overpass-turbo.eu/?template=key-value&key="+k+"&value="+v+"'>Overpass Turbo</a> or <a href='http://osm.dumoulin63.net/xapiviewer/?request="+shtml+"'>XAPI Viewer</a> if you don't find <a href='http://wiki.openstreetmap.org/wiki/List_of_OSM_based_Services'>a render or an application</a> which suits you<br/>");
 }
 </script>
 </body>
