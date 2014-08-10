@@ -13,10 +13,11 @@
 		width:60%;margin-left:auto;margin-right:auto;text-align:center;
 		font-family:Verdana;
 		font-size:15pt;
-		font-weigth:bold;
 	}
 	.tag{color:red;}
 	input{}
+	#notice{position:fixed; right:5px;bottom:5px; max-width:400px;}
+	#notice p{ font-size:8pt; text-align:right; }
 	</style>
 </head>
 <body>
@@ -25,6 +26,7 @@
 		<input type="submit" id="sub" name="sub" value="Does it render?"/>
 	</form>
 	<div id="result" name="result"></div>
+	<div id="notice" name="notice"><p>This website (hosted on <a href="https://github.com/sabas/doesitrender">GitHub</a>) checks against a list parsed from <a href="https://github.com/gravitystorm/openstreetmap-carto">OpenStreetMap Carto</a>, the stylesheet used on <a href="http://www.openstreetmap.org/">osm.org</a> website. <br/>  It could have errors or be outdated, last checked: 20140810</p></div>
 <script type="text/javascript">
 if (window.location.hash.length>1)
 {
